@@ -1,9 +1,16 @@
+import entity.Client;
+import entity.Projet;
+import entity.enums.EtatProjet;
+import services.GestionnaireProjet;
+
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ClientAffichage clientAff = new ClientAffichage();
+
+        GestionnaireProjet gestionnaireProjet = new GestionnaireProjet();
 
         boolean status = true;
 
@@ -28,8 +35,21 @@ public class Main {
                     clientAff.rechercheClient();
                     break;
                 case 6:
-                    quitter();
+                    clientAff.rechercheClientParNom();
                     break;
+                case 7:
+
+                    Client client = new Client(); // Assurez-vous que vous avez un client valide
+                    client.setId(1); // Assignez un ID de client valide si nécessaire
+
+                    Projet projet = new Projet(client, "Rénovation Cuisine Mme Dupont", 15.0, EtatProjet.En_cours);
+
+                    int clientId = 1; // ID du client à associer
+                    gestionnaireProjet.ajouterProjet(projet, clientId);
+                    break;
+//                case 6:
+//                    quitter();
+//                    break;
                 default:
                     System.out.println("Error");
             }
@@ -43,10 +63,11 @@ public class Main {
         System.out.println("3. Modifier un client");
         System.out.println("4. Supprimer un client");
         System.out.println("5. recherche un client");
+        System.out.println("6. recherche par nom ");
+        System.out.println("7 ajout prj");
 
         System.out.println("n. Quitter");
         System.out.print("Choisissez une option : ");
-
     }
 
     private static void quitter() {

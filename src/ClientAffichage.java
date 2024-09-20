@@ -91,18 +91,16 @@ public class ClientAffichage {
         scanner.nextLine();
 
         Optional<Client> client = clientService.chercherClient(id);
-        if(client.isEmpty())
-        {
-            System.out.println("Utilisateur non trouvé.");
-        }else{
-            System.out.println("Client trouvé !\n");
-        }
 
-//        Client trouvé !
-//                Nom : Mme Dupont
-//        Adresse : 12 Rue des Fleurs, Paris
-//        Numéro de téléphone : 06 12345678
+        System.out.println(client.isPresent() ? client.get():"not found");
+    }
 
-        System.out.println(client.get());
+    public void rechercheClientParNom(){
+        System.out.println("Nom de client: ");
+        String  nom = scanner.nextLine();
+
+        Optional<Client> client = clientService.rechercheParNom(nom);
+        System.out.println(client.isPresent() ? client.get():"not found");
+
     }
 }
