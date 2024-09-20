@@ -3,11 +3,12 @@ package services;
 
 import entity.Client;
 import repository.impl.ClientRepository;
+import services.interfaces.ClientInterface;
 //import re
 import java.util.List;
 import java.util.Optional;
 
-public class ClientService {
+public class ClientService implements ClientInterface {
     private ClientRepository clientRepository = new ClientRepository();
 
     public List<Client> clientListe() {
