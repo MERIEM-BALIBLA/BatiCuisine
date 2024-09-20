@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package services;
 
 import entity.Client;
@@ -37,3 +38,5 @@ public class ClientService {
     }
 
 }
+=======
+>>>>>>> 46276854892b260bd8b7824001a1e2131c4552f6
