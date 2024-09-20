@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package repository.interfaces;
 
 import entity.Client;
@@ -14,5 +13,3 @@ public interface ClientInterface {
 
     Client modifierClient(int id, String nouveauNom, String nouveauAdresse, String nouveauTelephone, boolean nouveauProfessionnel);
 }
-=======
->>>>>>> 46276854892b260bd8b7824001a1e2131c4552f6
