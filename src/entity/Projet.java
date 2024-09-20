@@ -2,6 +2,8 @@ package entity;
 
 import entity.enums.EtatProjet;
 
+import java.util.List;
+
 public class Projet {
     private int id;
     private Client client;
@@ -9,13 +11,12 @@ public class Projet {
     private double marge_Beneficiaire;
     private double cout_Total;
     private EtatProjet etat_Projet;
+    private List<Composant> composants;
 
-    public Projet(int id, Client client, String nom_Projet, double marge_Beneficiaire, double cout_Total, EtatProjet etat_Projet) {
-        this.id = id;
+    public Projet(Client client, String nom_Projet, double marge_Beneficiaire, EtatProjet etat_Projet) {
         this.client = client;
         this.nom_Projet = nom_Projet;
         this.marge_Beneficiaire = marge_Beneficiaire;
-        this.cout_Total = cout_Total;
         this.etat_Projet = etat_Projet;
     }
 
@@ -62,7 +63,27 @@ public class Projet {
         return etat_Projet;
     }
 
+    public List<Composant> getComposants() {
+        return composants;
+    }
+
+    public void setComposants(List<Composant> composants) {
+        this.composants = composants;
+    }
+
     public void setEtat_Projet(EtatProjet etat_Projet) {
         this.etat_Projet = etat_Projet;
+    }
+
+    @Override
+    public String toString() {
+        return "Projet{" +
+                "id=" + id +
+                ", client=" + client +
+                ", nom_Projet='" + nom_Projet + '\'' +
+                ", marge_Beneficiaire=" + marge_Beneficiaire +
+
+                ", etat_Projet=" + etat_Projet +
+                '}';
     }
 }
