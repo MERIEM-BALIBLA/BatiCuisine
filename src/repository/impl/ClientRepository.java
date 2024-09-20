@@ -20,6 +20,7 @@ public class ClientRepository implements ClientInterface{
         this.connection = Connexion.getInstance();
     }
 
+
     @Override
     public List<Client> clientsListe() {
         List<Client> liste = new ArrayList<>();
