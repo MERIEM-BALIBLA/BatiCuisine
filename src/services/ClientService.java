@@ -38,5 +38,7 @@ public class ClientService implements ClientInterface {
         return clientRepository.modifierClient(id, nouveauNom, nouveauAdresse, nouveauTelephone, nouveauProfessionnel);
     }
 
-
+    public Optional<Client> rechercherClientParNom(String nom) {
+        return clientRepository.rechercherClientParNom(nom);
+    }
 }

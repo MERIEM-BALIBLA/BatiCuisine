@@ -125,6 +125,30 @@ public class ClientRepository implements ClientInterface{
         return null;
     }
 
+    public Optional<Client> rechercherClientParNom(String nom) {
+        try {
+            String sql = "SELECT * FROM clients WHERE nom = ?";
+            PreparedStatement ps = connection.connectToDB().prepareStatement(sql);
+            ps.setString(1, nom); // Utiliser setString pour le nom
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("id"); // Récupérer l'ID
+                String clientNom = rs.getString("nom");
+                String adresse = rs.getString("adresse");
+                String tele = rs.getString("telephone");
+                boolean pro = rs.getBoolean("professionnel");
+
+                // Retourner un Optional avec le client trouvé
+                return Optional.of(new Client(id, clientNom, adresse, tele, pro));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return Optional.empty(); // Aucun client trouvé
+    }
+
 
 }
 

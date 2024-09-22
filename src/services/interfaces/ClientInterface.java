@@ -15,4 +15,6 @@ public interface ClientInterface {
     boolean supprimerClient(int id);
 
     Client modifierClient(int id, String nouveauNom, String nouveauAdresse, String nouveauTelephone, boolean nouveauProfessionnel);
+
+    Optional<Client> rechercherClientParNom(String nom);
 }

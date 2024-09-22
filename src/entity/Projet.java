@@ -20,11 +20,24 @@ public class Projet {
         this.etat_Projet = etat_Projet;
     }
 
+
     public Projet() {
+    }
+
+    public Projet(Client client, String nom_Projet, double marge_Beneficiaire) {
+        this.client = client;
+        this.nom_Projet = nom_Projet;
+        this.marge_Beneficiaire = marge_Beneficiaire;
+        this.etat_Projet = EtatProjet.En_cours; // Default state
+
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Client getClient() {

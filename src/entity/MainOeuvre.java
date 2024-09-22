@@ -1,16 +1,18 @@
 package entity;
 
+import entity.enums.ComposantType;
+
 public class MainOeuvre extends Composant {
     private double tauxHoraire;
     private double heuresTravail;
     private double productiviteOuvrier;
 
-//    public MainOeuvre(int id, String nom, String typeComposant, double tauxTVA, double tauxHoraire, double heuresTravail, double productiviteOuvrier) {
-//        super(id, nom, typeComposant, tauxTVA);
-//        this.tauxHoraire = tauxHoraire;
-//        this.heuresTravail = heuresTravail;
-//        this.productiviteOuvrier = productiviteOuvrier;
-//    }
+    public MainOeuvre(String nom, ComposantType typeComposant, double tauxTVA, Projet projet, double tauxHoraire, double heuresTravail, double productiviteOuvrier) {
+        super(nom, typeComposant, tauxTVA, projet);
+        this.tauxHoraire = tauxHoraire;
+        this.heuresTravail = heuresTravail;
+        this.productiviteOuvrier = productiviteOuvrier;
+    }
 
     public MainOeuvre() {
     }
