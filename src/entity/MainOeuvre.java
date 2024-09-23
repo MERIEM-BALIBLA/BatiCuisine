@@ -14,6 +14,10 @@ public class MainOeuvre extends Composant {
         this.productiviteOuvrier = productiviteOuvrier;
     }
 
+    public MainOeuvre(String nom, ComposantType typeComposant, double tauxTVA, Projet projet) {
+        super(nom, typeComposant, tauxTVA, projet);
+    }
+
     public MainOeuvre() {
     }
 
@@ -41,7 +45,18 @@ public class MainOeuvre extends Composant {
         this.productiviteOuvrier = productiviteOuvrier;
     }
 
-//    public double calculerCoutTotal() {
-//        return (tauxHoraire * heuresTravail * productiviteOuvrier) * (1 + tauxTVA / 100);
-//    }
+    public double calculerCoutMainOeuvre() {
+        return tauxHoraire * heuresTravail * productiviteOuvrier;
+    }
+
+    @Override
+    public String toString() {
+        return "MainOeuvre{" +
+                "tauxHoraire=" + tauxHoraire +
+                ", heuresTravail=" + heuresTravail +
+                ", productiviteOuvrier=" + productiviteOuvrier +
+                ", tva =" + getTauxTVA() +
+
+                '}';
+    }
 }

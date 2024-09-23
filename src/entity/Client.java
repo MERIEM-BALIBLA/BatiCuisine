@@ -26,6 +26,11 @@ public class Client {
     public Client() {
     }
 
+    public Client(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
+
     public int getId() {
         return id;
     }

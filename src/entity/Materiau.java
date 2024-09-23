@@ -19,6 +19,17 @@ public class Materiau extends Composant {
         this.coefficientQualite = coefficientQualite;
     }
 
+    public Materiau(String nom, ComposantType typeComposant, double tauxTVA, Projet projet) {
+        super(nom, typeComposant, tauxTVA, projet);
+    }
+
+    public Materiau(double coutUnitaire, double quantite, double coutTransport, double coefficientQualite) {
+        this.coutUnitaire = coutUnitaire;
+        this.quantite = quantite;
+        this.coutTransport = coutTransport;
+        this.coefficientQualite = coefficientQualite;
+    }
+
     public double getCoutUnitaire() {
         return coutUnitaire;
     }
@@ -49,5 +60,19 @@ public class Materiau extends Composant {
 
     public void setCoefficientQualite(double coefficientQualite) {
         this.coefficientQualite = coefficientQualite;
+    }
+
+    public double calculerCoutMateriau() {
+        return (coutUnitaire * quantite * coefficientQualite) + coutTransport ;
+    }
+
+    @Override
+    public String toString() {
+        return "Materiau{" +
+                "coutUnitaire=" + coutUnitaire +
+                ", quantite=" + quantite +
+                ", coutTransport=" + coutTransport +
+                ", coefficientQualite=" + coefficientQualite +
+                '}';
     }
 }

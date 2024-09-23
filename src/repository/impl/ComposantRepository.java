@@ -4,15 +4,21 @@ import config.Connexion;
 import entity.Composant;
 import entity.MainOeuvre;
 import entity.Materiau;
+import entity.Projet;
+import entity.enums.ComposantType;
 import repository.interfaces.ComposantInterface;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ComposantRepository implements ComposantInterface {
 
     private final Connexion connection;
+    private static ProjetRepository projetRepository = new ProjetRepository();
 
     public ComposantRepository() {
         this.connection = Connexion.getInstance();

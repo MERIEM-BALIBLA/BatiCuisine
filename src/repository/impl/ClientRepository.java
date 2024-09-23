@@ -5,10 +5,7 @@ import config.Connexion;
 import entity.Client;
 import repository.interfaces.ClientInterface;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,17 +42,20 @@ public class ClientRepository implements ClientInterface{
     @Override
     public Client ajouterClient(String nom, String adresse, String telephone, boolean professionnel) {
         String query = "INSERT INTO clients (nom, adresse, telephone, professionnel) VALUES (?, ?, ?, ?)";
-        try {
-            PreparedStatement preparedStatement = connection.connectToDB().prepareStatement(query);
+        try (PreparedStatement preparedStatement = connection.connectToDB().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, nom);
             preparedStatement.setString(2, adresse);
             preparedStatement.setString(3, telephone);
             preparedStatement.setBoolean(4, professionnel);
-            int rowsAffected = preparedStatement.executeUpdate();
 
+            int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Client added successfully!");
-                return new Client(nom, adresse, telephone, professionnel);
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    int id = resultSet.getInt(1);
+                    System.out.println("Client added successfully!");
+                    return new Client(id, nom, adresse, telephone, professionnel);
+                }
             } else {
                 System.out.println("Failed to add client.");
             }
