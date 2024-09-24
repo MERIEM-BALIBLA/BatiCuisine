@@ -1,14 +1,31 @@
 package entity;
 
+import entity.enums.ComposantType;
+
 public abstract class Composant {
     private int id;
     private String nom;
-    private String typeComposant;
+    private ComposantType typeComposant;
     private double tauxTVA;
     private Projet projet;
 
     public Composant() {
     }
+
+    public Composant(String nom, ComposantType typeComposant, double tauxTVA, Projet projet) {
+        this.nom = nom;
+        this.typeComposant = typeComposant;
+        this.tauxTVA = tauxTVA;
+        this.projet = projet;
+    }
+
+    //    public Composant(int id, String nom, ComposantType typeComposant, double tauxTVA, Projet projet) {
+//        this.id = id;
+//        this.nom = nom;
+//        this.typeComposant = typeComposant;
+//        this.tauxTVA = tauxTVA;
+//        this.projet = projet;
+//    }
 
     public int getId() {
         return id;
@@ -22,11 +39,11 @@ public abstract class Composant {
         this.nom = nom;
     }
 
-    public String getTypeComposant() {
+    public ComposantType getTypeComposant() {
         return typeComposant;
     }
 
-    public void setTypeComposant(String typeComposant) {
+    public void setTypeComposant(ComposantType typeComposant) {
         this.typeComposant = typeComposant;
     }
 

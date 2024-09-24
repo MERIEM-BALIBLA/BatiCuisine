@@ -9,7 +9,7 @@ public class Projet {
     private Client client;
     private String nom_Projet;
     private double marge_Beneficiaire;
-    private double cout_Total;
+    private double cout_Total = 0;
     private EtatProjet etat_Projet;
     private List<Composant> composants;
 
@@ -20,11 +20,33 @@ public class Projet {
         this.etat_Projet = etat_Projet;
     }
 
+    public Projet(String nom_Projet, double marge_Beneficiaire, EtatProjet etat_Projet) {
+        this.nom_Projet = nom_Projet;
+        this.marge_Beneficiaire = marge_Beneficiaire;
+        this.etat_Projet = etat_Projet;
+    }
+
     public Projet() {
+    }
+
+    public Projet(Client client, String nom_Projet, double marge_Beneficiaire) {
+        this.client = client;
+        this.nom_Projet = nom_Projet;
+        this.marge_Beneficiaire = marge_Beneficiaire;
+        this.etat_Projet = EtatProjet.En_cours; // Default state
+
+    }
+
+    public void addComposant(Composant composant) {
+        this.composants.add(composant);
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Client getClient() {
@@ -55,9 +77,16 @@ public class Projet {
         return cout_Total;
     }
 
-    public void setCout_Total(double cout_Total) {
+//    public double setCout_Total(double cout_Total) {
+//        this.cout_Total = cout_Total;
+//        return cout_Total;
+//    }
+
+    public double setCout_Total(double cout_Total) {
         this.cout_Total = cout_Total;
+        return this.cout_Total; // Assurez-vous que cela renvoie la valeur mise à jour
     }
+
 
     public EtatProjet getEtat_Projet() {
         return etat_Projet;

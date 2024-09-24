@@ -1,4 +1,4 @@
-package repository.interfaces;
+package services.interfaces;
 
 import entity.Composant;
 

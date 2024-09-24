@@ -1,16 +1,22 @@
 package entity;
 
+import entity.enums.ComposantType;
+
 public class MainOeuvre extends Composant {
     private double tauxHoraire;
     private double heuresTravail;
     private double productiviteOuvrier;
 
-//    public MainOeuvre(int id, String nom, String typeComposant, double tauxTVA, double tauxHoraire, double heuresTravail, double productiviteOuvrier) {
-//        super(id, nom, typeComposant, tauxTVA);
-//        this.tauxHoraire = tauxHoraire;
-//        this.heuresTravail = heuresTravail;
-//        this.productiviteOuvrier = productiviteOuvrier;
-//    }
+    public MainOeuvre(String nom, ComposantType typeComposant, double tauxTVA, Projet projet, double tauxHoraire, double heuresTravail, double productiviteOuvrier) {
+        super(nom, typeComposant, tauxTVA, projet);
+        this.tauxHoraire = tauxHoraire;
+        this.heuresTravail = heuresTravail;
+        this.productiviteOuvrier = productiviteOuvrier;
+    }
+
+    public MainOeuvre(String nom, ComposantType typeComposant, double tauxTVA, Projet projet) {
+        super(nom, typeComposant, tauxTVA, projet);
+    }
 
     public MainOeuvre() {
     }
@@ -39,7 +45,18 @@ public class MainOeuvre extends Composant {
         this.productiviteOuvrier = productiviteOuvrier;
     }
 
-//    public double calculerCoutTotal() {
-//        return (tauxHoraire * heuresTravail * productiviteOuvrier) * (1 + tauxTVA / 100);
-//    }
+    public double calculerCoutMainOeuvre() {
+        return tauxHoraire * heuresTravail * productiviteOuvrier * (1 + getTauxTVA()/100);
+    }
+
+    @Override
+    public String toString() {
+        return "MainOeuvre{" +
+                "tauxHoraire=" + tauxHoraire +
+                ", heuresTravail=" + heuresTravail +
+                ", productiviteOuvrier=" + productiviteOuvrier +
+                ", tva =" + getTauxTVA() +
+
+                '}';
+    }
 }

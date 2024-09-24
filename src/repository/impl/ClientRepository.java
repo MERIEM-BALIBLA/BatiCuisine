@@ -5,10 +5,7 @@ import config.Connexion;
 import entity.Client;
 import repository.interfaces.ClientInterface;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +16,7 @@ public class ClientRepository implements ClientInterface{
     public ClientRepository() {
         this.connection = Connexion.getInstance();
     }
+
 
     @Override
     public List<Client> clientsListe() {
@@ -44,17 +42,20 @@ public class ClientRepository implements ClientInterface{
     @Override
     public Client ajouterClient(String nom, String adresse, String telephone, boolean professionnel) {
         String query = "INSERT INTO clients (nom, adresse, telephone, professionnel) VALUES (?, ?, ?, ?)";
-        try {
-            PreparedStatement preparedStatement = connection.connectToDB().prepareStatement(query);
+        try (PreparedStatement preparedStatement = connection.connectToDB().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, nom);
             preparedStatement.setString(2, adresse);
             preparedStatement.setString(3, telephone);
             preparedStatement.setBoolean(4, professionnel);
-            int rowsAffected = preparedStatement.executeUpdate();
 
+            int rowsAffected = preparedStatement.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Client added successfully!");
-                return new Client(nom, adresse, telephone, professionnel);
+                ResultSet resultSet = preparedStatement.getGeneratedKeys();
+                if (resultSet.next()) {
+                    int id = resultSet.getInt(1);
+                    System.out.println("Client added successfully!");
+                    return new Client(id, nom, adresse, telephone, professionnel);
+                }
             } else {
                 System.out.println("Failed to add client.");
             }
@@ -122,6 +123,30 @@ public class ClientRepository implements ClientInterface{
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Optional<Client> rechercherClientParNom(String nom) {
+        try {
+            String sql = "SELECT * FROM clients WHERE nom = ?";
+            PreparedStatement ps = connection.connectToDB().prepareStatement(sql);
+            ps.setString(1, nom); // Utiliser setString pour le nom
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("id"); // Récupérer l'ID
+                String clientNom = rs.getString("nom");
+                String adresse = rs.getString("adresse");
+                String tele = rs.getString("telephone");
+                boolean pro = rs.getBoolean("professionnel");
+
+                // Retourner un Optional avec le client trouvé
+                return Optional.of(new Client(id, clientNom, adresse, tele, pro));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error executing query: " + e.getMessage());
+        }
+
+        return Optional.empty(); // Aucun client trouvé
     }
 
 
