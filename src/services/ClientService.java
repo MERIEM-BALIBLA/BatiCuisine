@@ -41,4 +41,5 @@ public class ClientService implements ClientInterface {
     public Optional<Client> rechercherClientParNom(String nom) {
         return clientRepository.rechercherClientParNom(nom);
     }
+
 }

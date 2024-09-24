@@ -19,6 +19,7 @@ public class Main {
 
         menu.afficherMenuPrincipal();
 
+
     }
 
     private static void afficherInfosProjet(Projet projet) {

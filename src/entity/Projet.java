@@ -37,6 +37,9 @@ public class Projet {
 
     }
 
+    public void addComposant(Composant composant) {
+        this.composants.add(composant);
+    }
 
     public int getId() {
         return id;

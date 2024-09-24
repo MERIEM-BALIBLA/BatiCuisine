@@ -22,26 +22,24 @@ public class GestionnaireProjet implements ProjetInterface {
     }
 
     public Optional<Projet> rechercheProjet(int id) {
-        Optional<Projet> projet = projetRepository.afficherProjet(id);
-        System.out.println(projet.get());
-        return projet;
+        return projetRepository.afficherProjet(id);
     }
 
     public List<Projet> projetListe() {
         return projetRepository.afficherTousLesProjets();
     }
+
     public Double coutTotal(Projet projet) {
         if (projet == null || projet.getComposants() == null || projet.getComposants().isEmpty()) {
             return 0.0; // Retourner 0 si le projet ou ses composants ne sont pas valides
         }
 
-        double tva = 0.0; // Valeur par défaut pour la TVA
-        if (projet.getComposants().size() > 1) {
-            tva = projet.getComposants().get(1).getTauxTVA(); // Assurez-vous que l'index existe
-        }
+//        double tva = 0.0; // Valeur par défaut pour la TVA
+//        if (projet.getComposants().size() > 1) {
+//            tva = projet.getComposants().get(1).getTauxTVA(); // Assurez-vous que l'index existe
+//        }
 
-        double cout = (gestionnaireComposant.coutMateriaux(projet) + gestionnaireComposant.coutMainOeuvre(projet))
-                *  projet.getMarge_Beneficiaire() * (1 + tva / 100);
+        double cout = (gestionnaireComposant.coutMateriaux(projet) + gestionnaireComposant.coutMainOeuvre(projet)) * projet.getMarge_Beneficiaire();
 
         projet.setCout_Total(cout); // Met à jour le coût total du projet
         return cout;
@@ -54,6 +52,13 @@ public class GestionnaireProjet implements ProjetInterface {
         double cout = (gestionnaireComposant.coutMateriaux(projet) + gestionnaireComposant.coutMainOeuvre(projet)) * projet.getMarge_Beneficiaire() * (1 + tva / 100);
         return cout;
     }*/
+    public Boolean supprimerProejt(Projet projet){
+        return projetRepository.supprimerProjet(projet);
+    }
+
+    public Projet modifierEtatProjet(Projet projet){
+        return projetRepository.modifierEtatProjet(projet);
+    }
 }
 
 

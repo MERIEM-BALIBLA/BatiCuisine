@@ -6,6 +6,7 @@ import entity.Projet;
 import entity.enums.ComposantType;
 import repository.impl.ComposantRepository;
 import services.GestionnaireComposant;
+import util.InputValidation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class ComposantAffichage {
 
     Scanner scanner = new Scanner(System.in);
     GestionnaireComposant gestionnaireComposant = new GestionnaireComposant();
+    private static InputValidation inputValidation = new InputValidation();
 
     public List<Materiau> ajouterMateriaux() {
         List<Materiau> materiaux = new ArrayList<>();
@@ -24,27 +26,32 @@ public class ComposantAffichage {
             Materiau materiau = new Materiau();
 
             System.out.print("Entrez le nom du matériau : ");
-            String nom = scanner.nextLine();
+//            String nom = scanner.nextLine();
+            String nom = InputValidation.validateNonEmptyString(scanner);
             materiau.setNom(nom);
 
             ComposantType type = ComposantType.Materiau;
             materiau.setTypeComposant(type);
 
             System.out.println("Entrer le cout unitaire :");
-            double coutUnitaire = scanner.nextDouble();
+//            double coutUnitaire = scanner.nextDouble();
+            double coutUnitaire = InputValidation.validateDoubleInput(scanner);
             materiau.setCoutUnitaire(coutUnitaire);
             scanner.nextLine();
 
             System.out.print("Entrez la quantité : ");
-            double quantite = scanner.nextDouble();
+//            double quantite = scanner.nextDouble();
+            double quantite = InputValidation.validateDoubleInput(scanner);
             materiau.setQuantite(quantite);
 
             System.out.print("Entrez le coût de transport : ");
-            double coutTransport = scanner.nextDouble();
+//            double coutTransport = scanner.nextDouble();
+            double coutTransport = InputValidation.validateDoubleInput(scanner);
             materiau.setCoutTransport(coutTransport);
 
             System.out.print("Entrez le coefficient de qualité : ");
-            double coefQualite = scanner.nextDouble();
+//            double coefQualite = scanner.nextDouble();
+            double coefQualite = InputValidation.validateDoubleInput(scanner);
             materiau.setCoefficientQualite(coefQualite);
             scanner.nextLine();
 
@@ -64,23 +71,27 @@ public class ComposantAffichage {
             MainOeuvre mainOeuvre = new MainOeuvre();
 
             System.out.print("Entrez le nom du matériau : ");
-            String nom = scanner.nextLine();
+//            String nom = scanner.nextLine();
+            String nom = InputValidation.validateNonEmptyString(scanner);
             mainOeuvre.setNom(nom);
 
             ComposantType type = ComposantType.MainOeuvre;
             mainOeuvre.setTypeComposant(type);
 
             System.out.println("Entrer le taux horaire :");
-            double tauxHoraire = scanner.nextDouble();
+//            double tauxHoraire = scanner.nextDouble();
+            double tauxHoraire = InputValidation.validateDoubleInput(scanner);
             mainOeuvre.setTauxHoraire(tauxHoraire);
             scanner.nextLine();
 
             System.out.print("Entrez les heures de travail : ");
-            double heureTravail = scanner.nextDouble();
+//            double heureTravail = scanner.nextDouble();
+            double heureTravail = InputValidation.validateDoubleInput(scanner);
             mainOeuvre.setHeuresTravail(heureTravail);
 
             System.out.print("Entrez productivité ouvrier : ");
-            double productiviteOurier = scanner.nextDouble();
+//            double productiviteOurier = scanner.nextDouble();
+            double productiviteOurier = InputValidation.validateDoubleInput(scanner);
             mainOeuvre.setProductiviteOuvrier(productiviteOurier);
             scanner.nextLine();
 

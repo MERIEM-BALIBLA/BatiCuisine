@@ -58,7 +58,7 @@ public class ProjetRepository {
                 EtatProjet etat = EtatProjet.valueOf(rs.getString("etat_projet"));
 
                 Projet projet = new Projet(nom, marge, etat);
-                projet.setId(id); // Définir l'ID récupéré
+                projet.setId(id);
                 return Optional.of(projet);
             }
         } catch (SQLException e) {
@@ -135,6 +135,33 @@ public class ProjetRepository {
         return composants;
     }
 
+
+    public Boolean supprimerProjet(Projet projet) {
+        Optional<Projet> projetOP = afficherProjet(projet.getId());
+        int id = projetOP.get().getId();
+        String sql = "DELETE FROM projets WEHERE id = ?";
+        try {
+            PreparedStatement ps = connection.connectToDB().prepareStatement(sql);
+            ps.setInt(1, id);
+            int rowsAffected = ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Projet modifierEtatProjet(Projet projet) {
+        String sql = "UPDATE projets SET etat_projet = CAST(? AS etatprojet) WHERE id = ?";
+        try (PreparedStatement ps = connection.connectToDB().prepareStatement(sql)) {
+            ps.setString(1, projet.getEtat_Projet().name()); // Use the enum's name
+            ps.setInt(2, projet.getId()); // Set the project ID
+            ps.executeUpdate(); // Execute the update
+        } catch (SQLException e) {
+            throw new RuntimeException(e); // Handle exceptions appropriately
+        }
+        return projet; // Return the updated project
+    }
 
 
 }

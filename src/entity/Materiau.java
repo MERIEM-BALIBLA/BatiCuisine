@@ -63,7 +63,7 @@ public class Materiau extends Composant {
     }
 
     public double calculerCoutMateriau() {
-        return (coutUnitaire * quantite * coefficientQualite) + coutTransport ;
+        return (coutUnitaire * quantite * coefficientQualite) + coutTransport * (1 + getTauxTVA()/100);
     }
 
     @Override

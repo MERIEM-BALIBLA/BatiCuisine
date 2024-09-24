@@ -23,6 +23,12 @@ public class GestionnaireComposant implements ComposantInterface {
 
 
     //    recuperer la liste des composants
+    public List<Materiau> materiauxList(Projet projet){
+        return materiauRepository.selectMateriaux(projet.getId());
+    }
+    public List<MainOeuvre> mainOeuvreList(Projet projet){
+        return mainoeuvreRepository.selectMainOeuvre(projet.getId());
+    }
     public List<Composant> composantList(Projet projet) {
         List<Composant> composants = new ArrayList<>();
 

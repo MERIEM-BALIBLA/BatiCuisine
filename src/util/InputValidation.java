@@ -17,7 +17,7 @@ public class InputValidation {
         }
     }
 
-    public static String validateNonEmptyString(Scanner scanner) {
+ /*   public static String validateNonEmptyString(Scanner scanner) {
         while (true) {
             String input = scanner.nextLine().trim();
             if (!input.isEmpty() && input.matches("[a-zA-Z]+") && input.length() <= 100) {
@@ -26,7 +26,18 @@ public class InputValidation {
                 System.out.println("Entrée invalide. Veuillez entrer une chaîne non vide contenant uniquement des lettres.");
             }
         }
-    }
+    }*/
+ public static String validateNonEmptyString(Scanner scanner) {
+     while (true) {
+         String input = scanner.nextLine().trim();
+         // Check if input is not empty and consists only of letters (case-insensitive)
+         if (!input.isEmpty() && input.matches("[a-zA-Zà-ÿÀ-ÿ]+") && input.length() <= 100) {
+             return input; // Return the valid input
+         } else {
+             System.out.println("Entrée invalide. Veuillez entrer une chaîne non vide contenant uniquement des lettres.");
+         }
+     }
+ }
 
     public static String validateAddress(Scanner scanner) {
         while (true) {
@@ -66,6 +77,18 @@ public class InputValidation {
             }
         }
     }
+
+    public boolean validerOuiNon(Scanner scanner) {
+        String choix = scanner.nextLine().toLowerCase();
+
+        while (!choix.equals("y") && !choix.equals("n")) {
+            System.out.println("Veuillez entrer 'y' pour oui ou 'n' pour non.");
+            choix = scanner.nextLine().toLowerCase();
+        }
+
+        return choix.equals("y");
+    }
+
 
 
 
