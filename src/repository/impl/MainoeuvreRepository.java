@@ -5,6 +5,7 @@ import entity.MainOeuvre;
 import entity.Materiau;
 import entity.Projet;
 import entity.enums.ComposantType;
+import repository.interfaces.MainoeuvreInterface;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MainoeuvreRepository {
+public class MainoeuvreRepository implements MainoeuvreInterface {
     private final Connexion connection;
     private static ProjetRepository projetRepository = new ProjetRepository();
 
@@ -21,6 +22,7 @@ public class MainoeuvreRepository {
         this.connection = Connexion.getInstance();
     }
 
+    @Override
     public List<MainOeuvre> selectMainOeuvre(int projet_id) {
         Optional<Projet> projetOptional = projetRepository.afficherProjet(projet_id);
         List<MainOeuvre> mainOeuvres = new ArrayList<>();

@@ -29,6 +29,7 @@ public class GestionnaireComposant implements ComposantInterface {
     public List<MainOeuvre> mainOeuvreList(Projet projet){
         return mainoeuvreRepository.selectMainOeuvre(projet.getId());
     }
+
     public List<Composant> composantList(Projet projet) {
         List<Composant> composants = new ArrayList<>();
 
@@ -44,7 +45,6 @@ public class GestionnaireComposant implements ComposantInterface {
 
         return composants;
     }
-
 
     public double coutMateriaux(Projet projet) {
         List<Materiau> composants = materiauRepository.selectMateriaux(projet.getId());

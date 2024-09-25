@@ -4,6 +4,7 @@ import config.Connexion;
 import entity.Materiau;
 import entity.Projet;
 import entity.enums.ComposantType;
+import repository.interfaces.MateriauInterface;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MateriauRepository {
+public class MateriauRepository implements MateriauInterface {
 
     private final Connexion connection;
     private static ProjetRepository projetRepository = new ProjetRepository();
@@ -21,6 +22,7 @@ public class MateriauRepository {
         this.connection = Connexion.getInstance();
     }
 
+    @Override
     public List<Materiau> selectMateriaux(int projet_id) {
         Optional<Projet> projetOptional = projetRepository.afficherProjet(projet_id);
         List<Materiau> materiaux = new ArrayList<>();

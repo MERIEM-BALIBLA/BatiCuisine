@@ -1,14 +1,14 @@
 package services;
 
-import entity.Composant;
 import entity.Devis;
 import entity.Projet;
 import entity.enums.EtatProjet;
 import repository.impl.DevisRepository;
+import repository.interfaces.DevisInterface;
 
 import java.util.List;
 
-public class DevisService {
+public class DevisService implements DevisInterface {
     private static DevisRepository devisRepository = new DevisRepository();
     GestionnaireProjet gestionnaireProjet = new GestionnaireProjet();
     GestionnaireComposant gestionnaireComposant = new GestionnaireComposant();

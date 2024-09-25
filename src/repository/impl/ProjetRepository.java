@@ -3,6 +3,7 @@ package repository.impl;
 import config.Connexion;
 import entity.*;
 import entity.enums.EtatProjet;
+import repository.interfaces.ProjetInterface;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ProjetRepository {
+public class ProjetRepository implements ProjetInterface {
 
     private final Connexion connection;
 
@@ -21,13 +22,14 @@ public class ProjetRepository {
     }
 
     public Projet ajouterProjet(Projet projet) {
-        String sql = "INSERT INTO projets (client_id, nom_projet, marge_beneficiaire, etat_projet) VALUES (?, ?, ?, ?::etatprojet)";
+        String sql = "INSERT INTO projets (client_id, nom_projet, marge_beneficiaire, etat_projet,cout_total) VALUES (?, ?, ?, ?::etatprojet, ?)";
 
         try (PreparedStatement ps = connection.connectToDB().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, projet.getClient().getId());
             ps.setString(2, projet.getNom_Projet());
             ps.setDouble(3, projet.getMarge_Beneficiaire());
             ps.setString(4, projet.getEtat_Projet().name());
+            ps.setDouble(5, projet.getCout_Total());
 
             ps.executeUpdate();
 
@@ -56,8 +58,9 @@ public class ProjetRepository {
                 String nom = rs.getString("nom_projet");
                 double marge = rs.getDouble("marge_beneficiaire");
                 EtatProjet etat = EtatProjet.valueOf(rs.getString("etat_projet"));
+                double cout = rs.getDouble("cout_total");
 
-                Projet projet = new Projet(nom, marge, etat);
+                Projet projet = new Projet(nom, marge, cout, etat);
                 projet.setId(id);
                 return Optional.of(projet);
             }
@@ -70,7 +73,7 @@ public class ProjetRepository {
     public List<Projet> afficherTousLesProjets() {
         List<Projet> projets = new ArrayList<>();
 //        String sql = "SELECT * FROM projets";
-        String sql = "SELECT p.id, p.nom_projet, p.marge_beneficiaire, p.etat_projet, c.id AS client_id, c.nom AS client_nom "
+        String sql = "SELECT p.id, p.nom_projet, p.marge_beneficiaire, p.etat_projet, p.cout_total, c.id AS client_id, c.nom AS client_nom "
                 + "FROM projets p "
                 + "JOIN clients c ON p.client_id = c.id";
         try (PreparedStatement ps = connection.connectToDB().prepareStatement(sql);
@@ -81,13 +84,14 @@ public class ProjetRepository {
                 String nomProjet = rs.getString("nom_projet");
                 double margeBeneficiaire = rs.getDouble("marge_beneficiaire");
                 EtatProjet etatProjet = EtatProjet.valueOf(rs.getString("etat_projet")); // Assurez-vous que l'énumération correspond
+                double cout = rs.getDouble("cout_total");
                 int clientId = rs.getInt("client_id");
                 String clientNom = rs.getString("client_nom");
 
                 Client client = new Client(clientId, clientNom); // Adapt this to your Client constructor
 
-                Projet projet = new Projet(client, nomProjet, margeBeneficiaire, etatProjet);
-                projet.setId(id); // Set the ID
+                Projet projet = new Projet(client, nomProjet, margeBeneficiaire, cout, etatProjet);
+                projet.setId(id);
 
                 projets.add(projet);
             }
@@ -161,6 +165,29 @@ public class ProjetRepository {
             throw new RuntimeException(e); // Handle exceptions appropriately
         }
         return projet; // Return the updated project
+    }
+
+    public List<Projet> selectProjetParClient(int id){
+        List<Projet> projets = new ArrayList<>();
+        String sql ="SELECT * FROM projets WHERE client_id = ?";
+        try (PreparedStatement ps = connection.connectToDB().prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+//                int id = rs.getInt("id");
+                String nom = rs.getString("nom_projet");
+                double marge = rs.getDouble("marge_beneficiaire");
+                EtatProjet etat = EtatProjet.valueOf(rs.getString("etat_projet"));
+                double cout = rs.getDouble("cout_total");
+
+                Projet projet = new Projet(nom, marge, cout, etat);
+                projet.setId(id);
+                projets.add(projet);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return projets;
     }
 
 
