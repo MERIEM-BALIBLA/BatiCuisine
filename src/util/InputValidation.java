@@ -20,9 +20,8 @@ public class InputValidation {
     public static String validateNonEmptyString(Scanner scanner) {
         while (true) {
             String input = scanner.nextLine().trim();
-            // Check if input is not empty and consists only of letters (case-insensitive)
             if (!input.isEmpty() && input.matches("[a-zA-Zà-ÿÀ-ÿ]+") && input.length() <= 100) {
-                return input; // Return the valid input
+                return input;
             } else {
                 System.out.println("Entrée invalide. Veuillez entrer une chaîne non vide contenant uniquement des lettres.");
             }
@@ -44,7 +43,6 @@ public class InputValidation {
     public static String validatePhoneNumber(Scanner scanner) {
         while (true) {
             String input = scanner.nextLine().trim();
-            // Regex pour valider un numéro de téléphone (ex : 0123456789 ou +33123456789)
             if (input.matches("^\\+?\\d{10,15}$")) {
                 return input;
             } else {
@@ -53,19 +51,6 @@ public class InputValidation {
         }
     }
 
-
-    public static boolean validateProfessionalStatus(Scanner scanner) {
-        while (true) {
-            String input = scanner.nextLine().trim().toUpperCase();
-            if (input.equals("OUI")) {
-                return true;
-            } else if (input.equals("NON")) {
-                return false;
-            } else {
-                System.out.println("Entrée invalide. Veuillez entrer 'OUI' ou 'NON'.");
-            }
-        }
-    }
 
     public boolean validerOuiNon(Scanner scanner) {
         String choix = scanner.nextLine().toLowerCase();

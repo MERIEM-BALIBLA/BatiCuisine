@@ -26,7 +26,6 @@ public class ComposantAffichage {
             Materiau materiau = new Materiau();
 
             System.out.print("Entrez le nom du matériau : ");
-//            String nom = scanner.nextLine();
             String nom = InputValidation.validateNonEmptyString(scanner);
             materiau.setNom(nom);
 
@@ -38,17 +37,14 @@ public class ComposantAffichage {
             materiau.setCoutUnitaire(coutUnitaire);
 
             System.out.print("Entrez la quantité : ");
-//            double quantite = scanner.nextDouble();
             double quantite = InputValidation.validateDoubleInput(scanner);
             materiau.setQuantite(quantite);
 
             System.out.print("Entrez le coût de transport : ");
-//            double coutTransport = scanner.nextDouble();
             double coutTransport = InputValidation.validateDoubleInput(scanner);
             materiau.setCoutTransport(coutTransport);
 
             System.out.print("Entrez le coefficient de qualité : ");
-//            double coefQualite = scanner.nextDouble();
             double coefQualite = InputValidation.validateDoubleInput(scanner);
             materiau.setCoefficientQualite(coefQualite);
 

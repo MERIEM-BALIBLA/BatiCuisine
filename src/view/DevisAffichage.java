@@ -19,7 +19,6 @@ public class DevisAffichage {
         LocalDate dateValidite = null;
         LocalDate today = LocalDate.now();
 
-        // Validation de la date d'émission
         while (dateEmission == null) {
             System.out.print("Entrez la date d'émission du devis (format : jj/mm/aaaa) : ");
             String dateEmissionStr = scanner.next();
@@ -34,7 +33,6 @@ public class DevisAffichage {
             }
         }
 
-        // Validation de la date de validité (sans condition par rapport à la date d'émission)
         while (dateValidite == null) {
             System.out.print("Entrez la date de validité du devis (format : jj/mm/aaaa) : ");
             String dateValiditeStr = scanner.next();

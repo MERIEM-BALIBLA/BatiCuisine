@@ -201,63 +201,7 @@ public class ClientAffichage {
     }
 
 
-/*
-    public Client gererClient() {
-        System.out.println("--- Gestion des Clients ---");
-        System.out.println("Souhaitez-vous chercher un client existant ou en ajouter un nouveau ?");
-        System.out.println("1. Chercher un client existant");
-        System.out.println("2. Ajouter un nouveau client");
-        System.out.print("Choisissez une option : ");
-        int choix = scanner.nextInt();
-        scanner.nextLine();
 
-        Optional<Client> client = Optional.empty();
-
-        if (choix == 1) {
-            System.out.print("Entrez le nom du client : ");
-            String nom = InputValidation.validateNonEmptyString(scanner);
-
-            client = clientService.rechercherClientParNom(nom);
-//            client = clientService.rechercherClientParNom(nom.toUpperCase());
-
-
-            if (client.isPresent()) {
-                System.out.println("Client trouvé !");
-                System.out.println("Nom : " + client.get().getNom());
-                System.out.println("Adresse : " + client.get().getAdresse());
-                System.out.println("Numéro de téléphone : " + client.get().getTelephone());
-
-                System.out.print("Souhaitez-vous continuer avec ce client ? (y/n) : ");
-                String choixP = String.valueOf(inputValidation.validerOuiNon(scanner));
-
-                if (choixP.equalsIgnoreCase("y")) {
-                    projetAffichage.ajouterProjet(client.get());
-                    return client.get();
-                }
-            } else {
-                System.out.println("Client non trouvé.");
-            }
-        }
-
-        Client nouveauClient = ajouterClient();
-        if (nouveauClient != null) {
-            System.out.println("Client ajouté avec succès !");
-            System.out.println("ID du client : " + nouveauClient.getId());
-
-            System.out.print("Souhaitez-vous continuer avec ce client ? (y/n) : ");
-            String choixP = String.valueOf(inputValidation.validerOuiNon(scanner));
-
-            if (choixP.equalsIgnoreCase("y")) {
-                projetAffichage.ajouterProjet(nouveauClient);
-                return nouveauClient;
-            }
-        } else {
-            System.out.println("Erreur lors de l'ajout du client.");
-        }
-
-        return null;
-    }
-*/
 
 
 }
