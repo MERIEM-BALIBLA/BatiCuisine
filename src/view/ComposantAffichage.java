@@ -33,11 +33,9 @@ public class ComposantAffichage {
             ComposantType type = ComposantType.Materiau;
             materiau.setTypeComposant(type);
 
-            System.out.println("Entrer le cout unitaire :");
-//            double coutUnitaire = scanner.nextDouble();
+            System.out.print("Entrer le cout unitaire :");
             double coutUnitaire = InputValidation.validateDoubleInput(scanner);
             materiau.setCoutUnitaire(coutUnitaire);
-            scanner.nextLine();
 
             System.out.print("Entrez la quantité : ");
 //            double quantite = scanner.nextDouble();
@@ -53,7 +51,6 @@ public class ComposantAffichage {
 //            double coefQualite = scanner.nextDouble();
             double coefQualite = InputValidation.validateDoubleInput(scanner);
             materiau.setCoefficientQualite(coefQualite);
-            scanner.nextLine();
 
             materiaux.add(materiau);
 
@@ -71,29 +68,23 @@ public class ComposantAffichage {
             MainOeuvre mainOeuvre = new MainOeuvre();
 
             System.out.print("Entrez le nom du matériau : ");
-//            String nom = scanner.nextLine();
             String nom = InputValidation.validateNonEmptyString(scanner);
             mainOeuvre.setNom(nom);
 
             ComposantType type = ComposantType.MainOeuvre;
             mainOeuvre.setTypeComposant(type);
 
-            System.out.println("Entrer le taux horaire :");
-//            double tauxHoraire = scanner.nextDouble();
+            System.out.print("Entrer le taux horaire :");
             double tauxHoraire = InputValidation.validateDoubleInput(scanner);
             mainOeuvre.setTauxHoraire(tauxHoraire);
-            scanner.nextLine();
 
             System.out.print("Entrez les heures de travail : ");
-//            double heureTravail = scanner.nextDouble();
             double heureTravail = InputValidation.validateDoubleInput(scanner);
             mainOeuvre.setHeuresTravail(heureTravail);
 
             System.out.print("Entrez productivité ouvrier : ");
-//            double productiviteOurier = scanner.nextDouble();
             double productiviteOurier = InputValidation.validateDoubleInput(scanner);
             mainOeuvre.setProductiviteOuvrier(productiviteOurier);
-            scanner.nextLine();
 
             mainOeuvres.add(mainOeuvre);
 
@@ -103,7 +94,4 @@ public class ComposantAffichage {
         return mainOeuvres;
     }
 
-    public void coutTotal(Projet projet){
-        System.out.println("Le cout total :" + gestionnaireComposant.coutTotal(projet));
-    }
 }

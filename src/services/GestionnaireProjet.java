@@ -1,16 +1,22 @@
 package services;
 
+import entity.Client;
 import entity.Composant;
 import entity.Projet;
+import entity.enums.ComposantType;
 import repository.impl.ProjetRepository;
 import services.interfaces.ProjetInterface;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class GestionnaireProjet implements ProjetInterface {
+
     ProjetRepository projetRepository = new ProjetRepository();
     GestionnaireComposant gestionnaireComposant = new GestionnaireComposant();
+    ClientService clientService = new ClientService();
 
     public Projet ajouterProjet(Projet projet) {
         Projet insertedProjet = projetRepository.ajouterProjet(projet);
@@ -29,36 +35,38 @@ public class GestionnaireProjet implements ProjetInterface {
         return projetRepository.afficherTousLesProjets();
     }
 
-    public Double coutTotal(Projet projet) {
-        if (projet == null || projet.getComposants() == null || projet.getComposants().isEmpty()) {
-            return 0.0; // Retourner 0 si le projet ou ses composants ne sont pas valides
-        }
-
-//        double tva = 0.0; // Valeur par défaut pour la TVA
-//        if (projet.getComposants().size() > 1) {
-//            tva = projet.getComposants().get(1).getTauxTVA(); // Assurez-vous que l'index existe
-//        }
-
-        double cout = (gestionnaireComposant.coutMateriaux(projet) + gestionnaireComposant.coutMainOeuvre(projet)) * projet.getMarge_Beneficiaire();
-
-        projet.setCout_Total(cout); // Met à jour le coût total du projet
-        return cout;
-    }
-
-  /*  public Double coutTotal(Projet projet) {
-        if(projet != null){
-            double tva = projet.getComposants().get(1).getTauxTVA();
-        }
-        double cout = (gestionnaireComposant.coutMateriaux(projet) + gestionnaireComposant.coutMainOeuvre(projet)) * projet.getMarge_Beneficiaire() * (1 + tva / 100);
-        return cout;
-    }*/
-    public Boolean supprimerProejt(Projet projet){
-        return projetRepository.supprimerProjet(projet);
-    }
-
-    public Projet modifierEtatProjet(Projet projet){
+    public Projet modifierEtatProjet(Projet projet) {
         return projetRepository.modifierEtatProjet(projet);
     }
+
+
+  /*  public Map<String, List<String>> clientListMap() {
+        List<Client> clientList = clientService.clientListe();
+
+        return clientList.stream().collect(Collectors.toMap(
+                Client::getNom, // Utilisez le nom du client comme clé
+                client -> {
+                    List<String> projetNames = projetRepository.selectProjetParClient(client.getId()).stream()
+                            .map(Projet::getNom_Projet)
+                            .collect(Collectors.toList());
+                    return projetNames;
+                },
+                (exesting, newproj) -> {
+                    exesting.addAll(newproj);
+                    return exesting;
+                }
+        ));
+    }*/
+
+/*
+    public static void main(String[] args) {
+        GestionnaireProjet gestionnaireProjet = new GestionnaireProjet();
+        Map<String, List<String>> projetLiset = gestionnaireProjet.clientListMap();
+        projetLiset.forEach((elem, com) -> {
+            System.out.println(elem + com);
+        });
+
+    }*/
 }
 
 

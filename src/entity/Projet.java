@@ -13,28 +13,30 @@ public class Projet {
     private EtatProjet etat_Projet;
     private List<Composant> composants;
 
-    public Projet(Client client, String nom_Projet, double marge_Beneficiaire, EtatProjet etat_Projet) {
+//    public Projet(Client client, String nom_Projet, double marge_Beneficiaire, EtatProjet etat_Projet) {
+//        this.client = client;
+//        this.nom_Projet = nom_Projet;
+//        this.marge_Beneficiaire = marge_Beneficiaire;
+//        this.etat_Projet = etat_Projet;
+//    }
+
+
+    public Projet(Client client, String nom_Projet, double marge_Beneficiaire, double cout_Total, EtatProjet etat_Projet) {
         this.client = client;
         this.nom_Projet = nom_Projet;
         this.marge_Beneficiaire = marge_Beneficiaire;
-        this.etat_Projet = etat_Projet;
-    }
-
-    public Projet(String nom_Projet, double marge_Beneficiaire, EtatProjet etat_Projet) {
-        this.nom_Projet = nom_Projet;
-        this.marge_Beneficiaire = marge_Beneficiaire;
+        this.cout_Total = cout_Total;
         this.etat_Projet = etat_Projet;
     }
 
     public Projet() {
     }
 
-    public Projet(Client client, String nom_Projet, double marge_Beneficiaire) {
-        this.client = client;
+    public Projet(String nom_Projet, double marge_Beneficiaire, double cout_Total, EtatProjet etat_Projet) {
         this.nom_Projet = nom_Projet;
         this.marge_Beneficiaire = marge_Beneficiaire;
-        this.etat_Projet = EtatProjet.En_cours; // Default state
-
+        this.cout_Total = cout_Total;
+        this.etat_Projet = etat_Projet;
     }
 
     public void addComposant(Composant composant) {
@@ -77,6 +79,8 @@ public class Projet {
         return cout_Total;
     }
 
+
+
 //    public double setCout_Total(double cout_Total) {
 //        this.cout_Total = cout_Total;
 //        return cout_Total;
@@ -111,8 +115,9 @@ public class Projet {
                 ", client=" + client +
                 ", nom_Projet='" + nom_Projet + '\'' +
                 ", marge_Beneficiaire=" + marge_Beneficiaire +
-
+                ", cout_Total=" + cout_Total +
                 ", etat_Projet=" + etat_Projet +
+                ", composants=" + composants +
                 '}';
     }
 }

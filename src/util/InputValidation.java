@@ -17,27 +17,17 @@ public class InputValidation {
         }
     }
 
- /*   public static String validateNonEmptyString(Scanner scanner) {
+    public static String validateNonEmptyString(Scanner scanner) {
         while (true) {
             String input = scanner.nextLine().trim();
-            if (!input.isEmpty() && input.matches("[a-zA-Z]+") && input.length() <= 100) {
-                return input;
+            // Check if input is not empty and consists only of letters (case-insensitive)
+            if (!input.isEmpty() && input.matches("[a-zA-Zà-ÿÀ-ÿ]+") && input.length() <= 100) {
+                return input; // Return the valid input
             } else {
                 System.out.println("Entrée invalide. Veuillez entrer une chaîne non vide contenant uniquement des lettres.");
             }
         }
-    }*/
- public static String validateNonEmptyString(Scanner scanner) {
-     while (true) {
-         String input = scanner.nextLine().trim();
-         // Check if input is not empty and consists only of letters (case-insensitive)
-         if (!input.isEmpty() && input.matches("[a-zA-Zà-ÿÀ-ÿ]+") && input.length() <= 100) {
-             return input; // Return the valid input
-         } else {
-             System.out.println("Entrée invalide. Veuillez entrer une chaîne non vide contenant uniquement des lettres.");
-         }
-     }
- }
+    }
 
     public static String validateAddress(Scanner scanner) {
         while (true) {
@@ -66,7 +56,6 @@ public class InputValidation {
 
     public static boolean validateProfessionalStatus(Scanner scanner) {
         while (true) {
-//            System.out.println("Ce client est un professionnel : OUI/NON");
             String input = scanner.nextLine().trim().toUpperCase();
             if (input.equals("OUI")) {
                 return true;
@@ -88,8 +77,6 @@ public class InputValidation {
 
         return choix.equals("y");
     }
-
-
 
 
 }

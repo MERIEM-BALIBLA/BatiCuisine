@@ -12,27 +12,38 @@ import java.util.Scanner;
 public class DevisAffichage {
     private static Scanner scanner = new Scanner(System.in);
     private DevisService devisService = new DevisService();
+
     public Devis devisInputs(Projet projet) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate dateEmission = null;
         LocalDate dateValidite = null;
+        LocalDate today = LocalDate.now();
 
-        try {
+        // Validation de la date d'émission
+        while (dateEmission == null) {
             System.out.print("Entrez la date d'émission du devis (format : jj/mm/aaaa) : ");
             String dateEmissionStr = scanner.next();
-            dateEmission = LocalDate.parse(dateEmissionStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Erreur de format de date pour la date d'émission.");
-            return null;
+            try {
+                dateEmission = LocalDate.parse(dateEmissionStr, formatter);
+                if (dateEmission.isBefore(today)) {
+                    System.out.println("La date d'émission doit être aujourd'hui ou une date future. Veuillez réessayer.");
+                    dateEmission = null;
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Date invalide, veuillez réessayer.");
+            }
         }
 
-        try {
+        // Validation de la date de validité (sans condition par rapport à la date d'émission)
+        while (dateValidite == null) {
             System.out.print("Entrez la date de validité du devis (format : jj/mm/aaaa) : ");
             String dateValiditeStr = scanner.next();
-            dateValidite = LocalDate.parse(dateValiditeStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Erreur de format de date pour la date de validité.");
-            return null;
+            try {
+                dateValidite = LocalDate.parse(dateValiditeStr, formatter);
+                // Pas de vérification ici
+            } catch (DateTimeParseException e) {
+                System.out.println("Date invalide, veuillez réessayer.");
+            }
         }
 
         Devis devis = new Devis();
@@ -43,12 +54,12 @@ public class DevisAffichage {
 
         System.out.print("Souhaitez-vous accepter le devis ? (y/n) : ");
         String acceptation = scanner.next();
-        if (acceptation.equalsIgnoreCase("y")) {
-            devis.setAccepte(true);
+        devis.setAccepte(acceptation.equalsIgnoreCase("y"));
+
+        if (devis.isAccepte()) {
             System.out.println("Devis enregistré avec succès !");
         } else {
             System.out.println("Le devis n'a pas été accepté et ne sera pas enregistré.");
-            devis.setAccepte(false);
         }
 
         devisService.ajouterDevis(devis);
@@ -56,51 +67,4 @@ public class DevisAffichage {
         return devis;
     }
 
-/*
-    public Devis devisInputs(Projet projet) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate dateEmission = null;
-        LocalDate dateValidite = null;
-
-        try {
-            System.out.print("Entrez la date d'émission du devis (format : jj/mm/aaaa) : ");
-            String dateEmissionStr = scanner.next();
-            dateEmission = LocalDate.parse(dateEmissionStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Erreur de format de date pour la date d'émission.");
-            return null;
-        }
-
-        try {
-            System.out.print("Entrez la date de validité du devis (format : jj/mm/aaaa) : ");
-            String dateValiditeStr = scanner.next();
-            dateValidite = LocalDate.parse(dateValiditeStr, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("Erreur de format de date pour la date de validité.");
-            return null;
-        }
-
-        Devis devis = new Devis();
-        System.out.println("Coût total du projet : " + projet.getCout_Total());
-        devis.setMontantEstime(projet.getCout_Total());
-        devis.setDateEmission(dateEmission);
-        devis.setDateValidite(dateValidite);
-        devis.setProjet(projet);
-        devis.setMontantEstime(projet.getCout_Total());
-
-        System.out.print("Souhaitez-vous accepter le devis ? (y/n) : ");
-        String acceptation = scanner.next();
-        if (acceptation.equalsIgnoreCase("y")) {
-            devis.setAccepte(true);
-            devisService.ajouterDevis(devis);
-            System.out.println("Devis enregistré avec succès !");
-            System.out.println(projet.getCout_Total());
-            System.out.println(devis.getMontantEstime());
-            return devis;
-        } else {
-            System.out.println("Le devis n'a pas été accepté et ne sera pas enregistré.");
-            return null;
-        }
-    }
-*/
 }
