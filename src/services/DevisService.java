@@ -6,13 +6,15 @@ import entity.enums.EtatProjet;
 import repository.impl.DevisRepository;
 import repository.interfaces.DevisInterface;
 
-import java.util.List;
 
 public class DevisService implements DevisInterface {
-    private static DevisRepository devisRepository = new DevisRepository();
-    GestionnaireProjet gestionnaireProjet = new GestionnaireProjet();
-    GestionnaireComposant gestionnaireComposant = new GestionnaireComposant();
+    private static DevisRepository devisRepository;
+    GestionnaireProjet gestionnaireProjet;
 
+    public DevisService() {
+        this.gestionnaireProjet = new GestionnaireProjet();
+        this.devisRepository = new DevisRepository();
+    }
 
     public Devis ajouterDevis(Devis devis) {
         Projet projet = devis.getProjet();
@@ -28,6 +30,5 @@ public class DevisService implements DevisInterface {
             return null;
         }
     }
-
 
 }

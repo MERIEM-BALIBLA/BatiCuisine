@@ -13,9 +13,15 @@ import java.util.List;
 
 public class GestionnaireComposant implements ComposantInterface {
 
-    private static ComposantRepository composantRepository = new ComposantRepository();
-    private static MateriauRepository materiauRepository = new MateriauRepository();
-    private static MainoeuvreRepository mainoeuvreRepository = new MainoeuvreRepository();
+    private final ComposantRepository composantRepository;
+    private final MateriauRepository materiauRepository;
+    private final MainoeuvreRepository mainoeuvreRepository;
+
+    public GestionnaireComposant() {
+        this.composantRepository = new ComposantRepository();
+        this.materiauRepository = new MateriauRepository();
+        this.mainoeuvreRepository = new MainoeuvreRepository();
+    }
 
     public Composant ajouterComposant(Composant composant) {
         return composantRepository.ajouterComposant(composant);

@@ -45,7 +45,8 @@ public class DevisAffichage {
         }
 
         Devis devis = new Devis();
-        devis.setMontantEstime(projet.getCout_Total());
+        devis.setMontantEstime(projet.getCout_Total() * projet.getMarge_Beneficiaire());
+
         devis.setDateEmission(dateEmission);
         devis.setDateValidite(dateValidite);
         devis.setProjet(projet);

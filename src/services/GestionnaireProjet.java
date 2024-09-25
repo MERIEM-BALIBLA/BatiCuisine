@@ -3,10 +3,10 @@ package services;
 import entity.Client;
 import entity.Composant;
 import entity.Projet;
-import entity.enums.ComposantType;
 import repository.impl.ProjetRepository;
 import services.interfaces.ProjetInterface;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -14,9 +14,14 @@ import java.util.stream.Collectors;
 
 public class GestionnaireProjet implements ProjetInterface {
 
-    ProjetRepository projetRepository = new ProjetRepository();
-    GestionnaireComposant gestionnaireComposant = new GestionnaireComposant();
-    ClientService clientService = new ClientService();
+    private final ProjetRepository projetRepository;
+
+    GestionnaireComposant gestionnaireComposant;
+
+    public GestionnaireProjet() {
+        this.projetRepository = new ProjetRepository();
+        this.gestionnaireComposant = new GestionnaireComposant();
+    }
 
     public Projet ajouterProjet(Projet projet) {
         Projet insertedProjet = projetRepository.ajouterProjet(projet);
@@ -40,33 +45,15 @@ public class GestionnaireProjet implements ProjetInterface {
     }
 
 
-  /*  public Map<String, List<String>> clientListMap() {
-        List<Client> clientList = clientService.clientListe();
-
-        return clientList.stream().collect(Collectors.toMap(
-                Client::getNom, // Utilisez le nom du client comme clé
-                client -> {
-                    List<String> projetNames = projetRepository.selectProjetParClient(client.getId()).stream()
-                            .map(Projet::getNom_Projet)
-                            .collect(Collectors.toList());
-                    return projetNames;
-                },
-                (exesting, newproj) -> {
-                    exesting.addAll(newproj);
-                    return exesting;
-                }
-        ));
-    }*/
-
-/*
-    public static void main(String[] args) {
+  /*  public static void main(String[] args) {
         GestionnaireProjet gestionnaireProjet = new GestionnaireProjet();
-        Map<String, List<String>> projetLiset = gestionnaireProjet.clientListMap();
-        projetLiset.forEach((elem, com) -> {
-            System.out.println(elem + com);
-        });
 
+        // Afficher chaque projet filtré
+//        gestionnaireProjet.filter().forEach(e -> System.out.println(e));
+        gestionnaireProjet.projetListe().forEach(e -> System.out.println(e.getNom_Projet() + e.getComposants()));
     }*/
+
+
 }
 
 

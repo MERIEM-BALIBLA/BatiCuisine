@@ -9,7 +9,13 @@ import java.util.List;
 import java.util.Optional;
 
 public class ClientService implements ClientInterface {
-    private ClientRepository clientRepository = new ClientRepository();
+    //    private ClientRepository clientRepository = new ClientRepository();
+    private final ClientRepository clientRepository;
+
+    // Injection par constructeur
+    public ClientService() {
+        this.clientRepository = new ClientRepository();
+    }
 
     public List<Client> clientListe() {
         return clientRepository.clientsListe();

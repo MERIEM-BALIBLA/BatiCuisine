@@ -64,7 +64,9 @@ public class ProjetAffichage {
         double coutMainOeuvre = mainOeuvres.stream().mapToDouble(MainOeuvre::calculerCoutMainOeuvre).sum();
         System.out.printf("Coût matériaux pour BRIQUE : %.2f%n", coutMateriaux);
         System.out.printf("Coût main-d'œuvre pour SEBAGH : %.2f%n", coutMainOeuvre);
+//        faire le calcul du cout total
         double coutTotal = coutMateriaux + coutMainOeuvre;
+//        verifier si client est prof
         if (projet.getClient().getEstProfessionnel().equals(true)) {
             coutTotal = (coutMateriaux + coutMainOeuvre) * 25 / 100;
         }

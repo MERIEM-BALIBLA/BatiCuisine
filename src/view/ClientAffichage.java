@@ -38,7 +38,7 @@ public class ClientAffichage {
     }
 
     public Client ajouterClient() {
-        System.out.println("Saiire le nom de client :");
+        System.out.println("Saisie le nom de client :");
         String nom = InputValidation.validateNonEmptyString(scanner);
 
         System.out.println("Saisie l'adresse de client :");
@@ -47,9 +47,6 @@ public class ClientAffichage {
         System.out.println("Saisie le numéro de téléphone du client :");
         String numero = InputValidation.validatePhoneNumber(scanner);
 
-//        System.out.println("Ce client est un professionnel : y/NON");
-//        String professionnel = scanner.nextLine();
-//        boolean pro = professionnel.equals("OUI");
 
         System.out.println("Ce client est un professionnel : OUI/NON");
         String professionnel = scanner.nextLine().toUpperCase();
@@ -58,6 +55,7 @@ public class ClientAffichage {
             professionnel = scanner.nextLine().toUpperCase();
         }
         boolean pro = professionnel.equals("OUI");
+
         Client nouveauClient = clientService.ajouterClient(nom, adresse, numero, pro);
 
         if (nouveauClient != null) {
@@ -116,11 +114,6 @@ public class ClientAffichage {
         } else {
             System.out.println("Client trouvé !\n");
         }
-
-//        Client trouvé !
-//                Nom : Mme Dupont
-//        Adresse : 12 Rue des Fleurs, Paris
-//        Numéro de téléphone : 06 12345678
 
         System.out.println(client.get());
     }

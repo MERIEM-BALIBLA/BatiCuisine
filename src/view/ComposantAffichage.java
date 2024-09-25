@@ -63,7 +63,7 @@ public class ComposantAffichage {
 
             MainOeuvre mainOeuvre = new MainOeuvre();
 
-            System.out.print("Entrez le nom du matériau : ");
+            System.out.print("Entrez le nom de la mainOeuvre : ");
             String nom = InputValidation.validateNonEmptyString(scanner);
             mainOeuvre.setNom(nom);
 

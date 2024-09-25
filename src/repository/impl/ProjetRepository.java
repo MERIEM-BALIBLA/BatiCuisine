@@ -9,9 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ProjetRepository implements ProjetInterface {
 
@@ -72,7 +70,6 @@ public class ProjetRepository implements ProjetInterface {
 
     public List<Projet> afficherTousLesProjets() {
         List<Projet> projets = new ArrayList<>();
-//        String sql = "SELECT * FROM projets";
         String sql = "SELECT p.id, p.nom_projet, p.marge_beneficiaire, p.etat_projet, p.cout_total, c.id AS client_id, c.nom AS client_nom "
                 + "FROM projets p "
                 + "JOIN clients c ON p.client_id = c.id";
@@ -167,28 +164,32 @@ public class ProjetRepository implements ProjetInterface {
         return projet; // Return the updated project
     }
 
-    public List<Projet> selectProjetParClient(int id){
-        List<Projet> projets = new ArrayList<>();
-        String sql ="SELECT * FROM projets WHERE client_id = ?";
-        try (PreparedStatement ps = connection.connectToDB().prepareStatement(sql)) {
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-//                int id = rs.getInt("id");
-                String nom = rs.getString("nom_projet");
-                double marge = rs.getDouble("marge_beneficiaire");
-                EtatProjet etat = EtatProjet.valueOf(rs.getString("etat_projet"));
-                double cout = rs.getDouble("cout_total");
 
-                Projet projet = new Projet(nom, marge, cout, etat);
-                projet.setId(id);
-                projets.add(projet);
+    public List<Client> clients() {
+        List<Client> clientList = new ArrayList<>();
+        String sql =
+                "SELECT * FROM clients LEFT JOIN projets ON projets.client_id = clients.id WHERE projets.client_id IS NULL";
+
+        try {
+            PreparedStatement ps = connection.connectToDB().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nom = rs.getString("nom");
+                Client client = new Client(id, nom);
+                clientList.add(client);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return projets;
+        return clientList;
     }
 
+//    public static void main(String[] args) {
+//        ProjetRepository projetRepository = new ProjetRepository();
+//
+//        List<Client> clientList = projetRepository.clients();
+//clientList.stream().forEach(e -> System.out.println(e.getNom()));
+//    }
 
 }
